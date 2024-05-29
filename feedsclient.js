@@ -1,11 +1,28 @@
 const stream = require("getstream");
 
 
-const userClient = stream.connect("2yxg5ueum4b7", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiQ29keSJ9.tBSPfQOfCGNhAs9kypLgoTdecUifZ792CiyX6_YtTfM", "1116600");
+const userClient = stream.connect(YOUR_API_KEY, USER_TOKEN);
+
+const feed = userClient.feed("user", "NewFeed")
 
 const getFeed = async () => {
-   const feed = userClient.feed("user", "Cody")
    return await feed.get()
 }
 
-getFeed().then(r => console.log(r))
+// getFeed().then(r => console.log(r))
+
+const followFeed = async () => {
+   return await feed.followFeed("user", "NewFeed2")
+}
+
+const addActivity = async () => {
+   return await feed.addActivity({
+      text: "Hello!",
+      verb: "activity",
+      object: "activity:1",
+      foreign_id: "activity:1",
+      time: new Date().toISOString()
+   })
+}
+
+addActivity().then(r => console.log(r))
